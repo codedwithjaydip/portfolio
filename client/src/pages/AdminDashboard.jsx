@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Check, LogOut, Mail, Star, Trash2 } from 'lucide-react';
+import { Check, LogOut, Mail, Pencil, Plus, Star, Trash2 } from 'lucide-react';
 
 import Button from '../components/Button.jsx';
 import Container from '../components/Container.jsx';
 import Badge from '../components/Badge.jsx';
+import AdminProjectForm from '../components/AdminProjectForm.jsx';
 import { api } from '../services/api.js';
 import { cn } from '../utils/cn.js';
 
@@ -30,6 +31,8 @@ export default function AdminDashboard({ admin, onSignOut }) {
   const [messages, setMessages] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  // null = form closed, 'new' = creating, or the project object being edited
+  const [formTarget, setFormTarget] = useState(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -73,6 +76,18 @@ export default function AdminDashboard({ admin, onSignOut }) {
     } catch (err) {
       setError(err.message);
     }
+  };
+
+  const saveProject = async (payload) => {
+    if (formTarget && formTarget !== 'new') {
+      const updated = await api.admin.updateProject(formTarget._id, payload);
+      setProjects((list) => list.map((item) => (item._id === formTarget._id ? updated.data : item)));
+    } else {
+      const created = await api.admin.createProject(payload);
+      setProjects((list) => [created.data, ...list]);
+    }
+    setFormTarget(null);
+    load();
   };
 
   const markRead = async (message) => {
@@ -155,10 +170,28 @@ export default function AdminDashboard({ admin, onSignOut }) {
 
       {!loading && tab === 'projects' && (
         <div className="mt-8">
+          {formTarget && (
+            <div className="mb-6">
+              <AdminProjectForm
+                project={formTarget === 'new' ? null : formTarget}
+                onSubmit={saveProject}
+                onCancel={() => setFormTarget(null)}
+              />
+            </div>
+          )}
+
+          {!formTarget && (
+            <Button type="button" size="sm" className="mb-5" onClick={() => setFormTarget('new')}>
+              <Plus size={15} aria-hidden="true" />
+              Add project
+            </Button>
+          )}
+
           {projects.length === 0 ? (
             <p className="surface p-8 text-sm text-gray-400">
-              No projects in the database yet. Run <code className="font-mono text-violet-300">npm run seed</code> in
-              the server folder to load them.
+              No projects yet. Add one above, or run{' '}
+              <code className="font-mono text-violet-300">npm run seed</code> in the server folder to load the
+              starter set.
             </p>
           ) : (
             <ul className="space-y-3">
@@ -183,6 +216,14 @@ export default function AdminDashboard({ admin, onSignOut }) {
                       )}
                     >
                       <Star size={15} aria-hidden="true" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setFormTarget(project)}
+                      aria-label={`Edit ${project.title}`}
+                      className="grid h-9 w-9 place-items-center rounded-lg border border-white/[0.09] text-gray-500 transition-colors hover:text-white"
+                    >
+                      <Pencil size={15} aria-hidden="true" />
                     </button>
                     <button
                       type="button"
@@ -257,8 +298,9 @@ export default function AdminDashboard({ admin, onSignOut }) {
       )}
 
       <p className="mt-12 text-xs text-gray-600">
-        Editing project copy is easiest in <code className="font-mono">server/utils/projects.seed.json</code>, then
-        re-run the seed. <Link to="/" className="underline hover:text-gray-400">Back to the site</Link>.
+        Projects can be added and edited above. Bulk changes are still easiest by editing{' '}
+        <code className="font-mono">server/utils/projects.seed.json</code> and re-running the seed.{' '}
+        <Link to="/" className="underline hover:text-gray-400">Back to the site</Link>.
       </p>
     </Container>
   );
