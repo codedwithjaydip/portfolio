@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Keep anchored sections clear of the sticky navbar. */
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    @apply bg-ink text-white font-sans antialiased;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    @apply bg-violet-500/35 text-white;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-violet-400 ring-offset-2 ring-offset-ink rounded-sm;
+  }
+
+  /* Honour the OS setting rather than assuming everyone wants motion. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #050505;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #26262b;
+    border-radius: 999px;
+    border: 3px solid #050505;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3a3a42;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl;
+  }
+
+  .surface {
+    @apply rounded-2xl border border-white/[0.07] bg-ink-raised;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-white via-violet-200 to-electric-400 bg-clip-text text-transparent;
+  }
+
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100]
+           focus:rounded-lg focus:bg-violet-600 focus:px-4 focus:py-2 focus:text-sm focus:font-medium;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  /* Fades a horizontally scrolling row at its edges instead of cutting it. */
+  .mask-edges {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+  }
+}

@@ -1,0 +1,240 @@
+[
+  {
+    "title": "Real-Time Chat Application",
+    "slug": "real-time-chat-application",
+    "category": "Real-Time",
+    "status": "Completed",
+    "featured": true,
+    "order": 1,
+    "shortDescription": "A real-time messaging platform built with React, Node.js, Express, MongoDB and Socket.IO.",
+    "description": "A messaging application where two people can talk with no page refresh anywhere in the flow. Socket.IO carries messages, presence and typing state over a single connection, while REST endpoints handle authentication and message history. A Gemini-backed assistant can draft replies and translate incoming messages.",
+    "image": "/images/projects/real-time chat.png",
+    "screenshots": ["/images/projects/real-time chat.png"],
+    "technologies": [
+      "React",
+      "Tailwind CSS",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "Socket.IO",
+      "JWT",
+      "Gemini AI"
+    ],
+    "features": [
+      "User authentication with JWT",
+      "Real-time messaging over Socket.IO",
+      "Online and offline presence",
+      "Typing indicators",
+      "Read receipts",
+      "AI message assistant",
+      "Message translation",
+      "Responsive layout down to small phones"
+    ],
+    "githubUrl": "https://github.com/codedwithjaydip",
+    "liveUrl": "https://real-time-chat-app-rho-amber.vercel.app",
+    "details": {
+      "overview": "A chat platform for one-to-one conversations, built to understand how stateful real-time systems differ from ordinary request/response web apps.",
+      "problem": "Polling an API for new messages is simple to write but wastes requests, adds latency and makes presence and typing indicators impractical. I wanted a version where the server pushes instead.",
+      "solution": "A persistent Socket.IO connection per signed-in user, with rooms keyed by conversation. Messages are written to MongoDB and emitted to the room in the same handler, so history and live delivery never diverge. REST handles login, contact lists and paginated history; sockets handle everything that changes second to second.",
+      "architecture": "React client (Vite) <-> Express REST API for auth and history, and a Socket.IO channel for messages, presence and typing. Mongoose models for User, Conversation and Message. JWT is verified in the Socket.IO handshake so a socket can never outlive its session.",
+      "challenges": [
+        "Keeping presence accurate when a browser tab closes without a clean disconnect",
+        "Preventing duplicate messages when a client reconnects mid-send",
+        "Debouncing typing events so they do not flood the socket"
+      ],
+      "learned": [
+        "How to authenticate a socket handshake rather than a request",
+        "Why optimistic UI needs a server-assigned message id to reconcile against",
+        "That real-time features are mostly a state-synchronisation problem, not a transport problem"
+      ]
+    }
+  },
+  {
+    "title": "NexaCart",
+    "slug": "nexacart",
+    "category": "Full Stack",
+    "status": "Completed",
+    "featured": true,
+    "order": 2,
+    "shortDescription": "A full-stack e-commerce platform with separate customer and admin applications over one API.",
+    "description": "An online store split into three deployable pieces: a customer storefront, an admin dashboard, and the Express API both talk to. Payments run through Razorpay, images through Cloudinary, and sign-in supports both email/password and Google.",
+    "image": "/images/projects/nexacart.png",
+    "screenshots": ["/images/projects/nexacart.png"],
+    "technologies": [
+      "React",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "Firebase",
+      "Razorpay",
+      "Cloudinary",
+      "JWT"
+    ],
+    "features": [
+      "Email and Google authentication",
+      "Product browsing and search",
+      "Shopping cart",
+      "Order placement and history",
+      "Online payments via Razorpay",
+      "Cloudinary image uploads",
+      "Admin dashboard",
+      "Product management",
+      "Order management",
+      "AI command navigation",
+      "Responsive design"
+    ],
+    "githubUrl": "https://github.com/codedwithjaydip",
+    "liveUrl": "https://nexacart-forntend-two.onrender.com",
+    "secondaryUrl": "https://nexacart-admin.onrender.com",
+    "secondaryLabel": "Admin Dashboard",
+
+    "details": {
+      "overview": "A working storefront with the parts that usually get skipped in tutorial e-commerce: real payment flow, real image hosting, and an admin surface that is a separate application rather than a hidden route.",
+      "problem": "Most student e-commerce projects stop at a product grid and a fake checkout. I wanted the money path and the operations path to actually exist, because those are where the interesting constraints are.",
+      "solution": "Three applications against one API. The customer app handles browsing, cart and checkout. The admin app handles catalogue and orders behind a role check. The API owns all business rules, so neither client can be trusted with pricing or order state.",
+      "architecture": "Customer app (React) and admin app (React) both call the Express API. MongoDB stores users, products, carts and orders. Firebase handles Google sign-in and hands the API a verified token. Razorpay order creation happens server-side and the payment signature is verified server-side before an order is marked paid. Cloudinary receives uploads via a signed request.",
+      "challenges": [
+        "Verifying the Razorpay payment signature on the server so a client cannot fake a paid order",
+        "Reconciling a guest cart with a user cart at sign-in",
+        "Keeping one shared API contract usable by two very different frontends"
+      ],
+      "learned": [
+        "Never let the client send the price — recompute totals from the database at checkout",
+        "How to sign and verify a third-party payment callback",
+        "That an admin app is a product with its own users, not an afterthought"
+      ]
+    }
+  },
+  {
+    "title": "CoretexAI",
+    "slug": "coretexai",
+    "category": "AI",
+    "status": "In Development",
+    "featured": true,
+    "order": 3,
+    "shortDescription": "An AI platform that puts chat, retrieval and tool-using agents behind one interface.",
+    "description": "An in-progress MERN application exploring multi-agent AI workflows: a chat interface backed by LangGraph, retrieval over a Qdrant vector store, and streaming responses. Built to learn how agent orchestration, caching and containerised deployment fit together.",
+    "image": "/images/projects/coretex-cover.svg",
+    "screenshots": [],
+    "technologies": [
+      "React",
+      "Redux Toolkit",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "Redis",
+      "LangChain",
+      "LangGraph",
+      "Qdrant",
+      "Docker",
+      "AWS",
+      "JWT"
+    ],
+    "features": [
+      "AI chat with streaming responses",
+      "Retrieval-augmented answers over uploaded documents",
+      "Tool calling and multi-step agents",
+      "Web search tool",
+      "Document and PDF processing",
+      "Redis-backed caching and job state"
+    ],
+    "githubUrl": "https://github.com/codedwithjaydip",
+    "liveUrl": "",
+    "details": {
+      "overview": "My current long-running project and the one I am learning the most from. It is under active development — the sections below describe what is built and what is still in progress.",
+      "problem": "Single-prompt LLM calls fall over as soon as a task needs several steps, external data or a tool. I wanted to build the orchestration layer myself rather than treat it as a black box.",
+      "solution": "A LangGraph state machine routes a request to the right agent, which can call tools, query the vector store, or hand back to the planner. Responses stream to the client token by token so long chains stay usable. Redis caches embeddings and holds job state between steps.",
+      "architecture": "React + Redux Toolkit client <-> Express API. LangGraph orchestrates agents; Qdrant stores document embeddings for retrieval; Redis caches and tracks long-running jobs; MongoDB stores users, conversations and document metadata. Docker images are built for both services and deployed to AWS.",
+      "challenges": [
+        "Streaming partial responses through an Express route without buffering",
+        "Chunking documents so retrieval returns relevant context rather than noise",
+        "Keeping agent state consistent when a step fails halfway through"
+      ],
+      "learned": [
+        "How a graph-based agent runtime differs from a simple prompt chain",
+        "That retrieval quality is mostly a chunking and embedding problem",
+        "How to containerise a multi-service application for deployment"
+      ]
+    }
+  },
+  {
+    "title": "Inventory Management System",
+    "slug": "inventory-management-system",
+    "category": "Other",
+    "status": "Completed",
+    "featured": false,
+    "order": 4,
+    "shortDescription": "A desktop inventory and billing system for products, suppliers, categories and staff operations.",
+    "description": "A Python desktop application for running a small shop's back office: product and supplier records, categories, billing, and separate admin and employee accounts with an email OTP password reset.",
+    "image": "/images/projects/inventory-cover.svg",
+    "screenshots": [],
+    "technologies": ["Python", "Tkinter", "MySQL"],
+    "features": [
+      "Admin login",
+      "Employee login",
+      "Product management",
+      "Category management",
+      "Supplier management",
+      "Billing",
+      "Email OTP password reset",
+      "MySQL database management"
+    ],
+    "githubUrl": "https://github.com/codedwithjaydip",
+    "liveUrl": "",
+    "details": {
+      "overview": "A desktop CRUD application built before I moved to web development. It is the project where I first had to think about database schema design rather than just queries.",
+      "problem": "A small shop tracking stock and bills on paper has no way to look up what was sold, what is low, or which supplier a product came from.",
+      "solution": "A Tkinter interface over a normalised MySQL schema, with two account types: admins manage the catalogue and staff, employees handle billing. Password reset goes through a one-time code sent by email rather than a security question.",
+      "architecture": "Tkinter views call a data-access layer that owns every SQL statement, so the UI never builds queries itself. MySQL holds products, categories, suppliers, employees and bills with foreign keys between them.",
+      "challenges": [
+        "Designing the schema so deleting a supplier does not orphan its products",
+        "Keeping the UI responsive while sending the OTP email",
+        "Validating input at the boundary rather than trusting form fields"
+      ],
+      "learned": [
+        "Why a data-access layer is worth writing even in a small app",
+        "How foreign keys and cascade rules shape what the UI can safely offer",
+        "The basics of transactional billing"
+      ]
+    }
+  },
+  {
+    "title": "Secure Login System",
+    "slug": "secure-login-system",
+    "category": "Full Stack",
+    "status": "Completed",
+    "featured": false,
+    "order": 5,
+    "shortDescription": "A web application for authentication, user information management and controlled file access.",
+    "description": "A FOSSEE task built around access control: authenticated users, protected routes, role-based permissions, and files that only the right role can download.",
+    "image": "/images/projects/secure-login-cover.svg",
+    "screenshots": [],
+    "technologies": ["Node.js", "Express.js", "PostgreSQL", "JWT"],
+    "features": [
+      "Secure authentication with hashed passwords",
+      "User detail management",
+      "Protected routes",
+      "Role-based access control",
+      "Controlled file access",
+      "PostgreSQL integration"
+    ],
+    "githubUrl": "https://github.com/codedwithjaydip",
+    "liveUrl": "",
+    "details": {
+      "overview": "A focused project about one thing: making sure a request can only reach what its owner is allowed to reach.",
+      "problem": "Hiding a link in the UI is not access control. A file endpoint has to check the requester's role on every request, not once at login.",
+      "solution": "JWT-authenticated sessions, a role stored against each user, and middleware that authorises per route and per file rather than per page. Passwords are hashed with bcrypt and never returned by any query.",
+      "architecture": "Express API with PostgreSQL. Auth middleware verifies the token, a role guard runs after it, and file downloads are streamed only after an ownership and role check passes.",
+      "challenges": [
+        "Making authorisation checks impossible to skip by adding them as middleware rather than inline",
+        "Handling token expiry without logging people out mid-task",
+        "Serving files without exposing a path that could be walked"
+      ],
+      "learned": [
+        "The difference between authentication and authorisation in practice",
+        "Why role checks belong on the server route, never in the frontend router",
+        "How to design SQL schema around permissions"
+      ]
+    }
+  }
+]
