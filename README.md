@@ -1,333 +1,564 @@
-# Jaydip Solanki — Developer Portfolio
+# Jaydip Solanki — Full-Stack Developer Portfolio
 
-A full-stack portfolio built with the MERN stack. The frontend is a React + Vite
-single-page app; the backend is an Express REST API backed by MongoDB, serving
-project data, handling contact messages and powering a JWT-protected admin
-dashboard.
+<p align="center">
+  <img src="https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
+  <img src="https://img.shields.io/badge/Node.js-Express-339933?style=for-the-badge&logo=node.js&logoColor=white" />
+  <img src="https://img.shields.io/badge/MongoDB-Database-47A248?style=for-the-badge&logo=mongodb&logoColor=white" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-UI-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" />
+  <img src="https://img.shields.io/badge/Vite-Build_Tool-646CFF?style=for-the-badge&logo=vite&logoColor=white" />
+</p>
 
-Live site: _add your deployed URL here_
+<p align="center">
+  A modern full-stack developer portfolio built with the MERN stack.
+  <br />
+  Showcasing my projects, skills, learning journey, and development experience.
+</p>
 
----
-
-## Features
-
-**Public site**
-
-- Animated hero, about section with an education timeline, and a skills grid that
-  distinguishes established skills from ones still being learned
-- Project gallery with category filtering and animated transitions
-- Dedicated detail page per project covering the problem, solution, architecture,
-  challenges and takeaways
-- Development journey timeline and a currently-learning roadmap
-- GitHub section pulling live repository and language data from the public API,
-  with a graceful fallback when rate-limited
-- Working contact form with client- and server-side validation, spam honeypot,
-  rate limiting and email notification
-- Custom 404, loading states, skeleton loaders and empty states throughout
-
-**Admin dashboard** (`/admin`)
-
-- JWT-authenticated sign-in
-- Dashboard counts for total/featured projects and total/unread messages
-- Feature, unfeature and delete projects
-- Read, mark read/unread and delete contact messages
-
-**Engineering**
-
-- Projects load from `GET /api/projects`, with a bundled fallback dataset so the
-  site still renders fully when the API is unreachable
-- Route-level code splitting for the project detail and admin pages
-- Full keyboard navigation, visible focus states, semantic landmarks, ARIA labels
-  and `prefers-reduced-motion` support
-- Open Graph and Twitter card metadata, JSON-LD person schema, `robots.txt` and a
-  sitemap
+<p align="center">
+  <a href="#features">Features</a> •
+  <a href="#tech-stack">Tech Stack</a> •
+  <a href="#project-structure">Structure</a> •
+  <a href="#installation">Installation</a> •
+  <a href="#api-endpoints">API</a> •
+  <a href="#deployment">Deployment</a>
+</p>
 
 ---
 
-## Tech stack
+## 🌐 Live Demo
 
-| Layer | Technologies |
-| --- | --- |
-| Frontend | React 18, Vite, Tailwind CSS, Framer Motion, React Router, Lucide React |
-| Backend | Node.js, Express, Mongoose |
-| Database | MongoDB |
-| Auth | JSON Web Tokens, bcrypt |
-| Email | Nodemailer |
-| Security | helmet, cors, express-rate-limit, express-validator |
+**Portfolio:** Add your deployed URL here
+
+**GitHub:** https://github.com/codedwithjaydip
+
+**LinkedIn:** https://www.linkedin.com/in/jaydip-solanki-7269a7238/
 
 ---
 
-## Screenshots
+## 📌 About the Project
 
-Add real screenshots to `client/public/images/projects/` and reference them from
-each project's `screenshots` array in `server/utils/projects.seed.json`.
+This portfolio is a full-stack web application designed to present my development journey, technical skills, projects, education, and contact information in a clean and interactive interface.
 
-The repository currently ships generated SVG placeholder covers at 16:9.
+Unlike a static portfolio, the project uses a **React frontend + Express backend + MongoDB database**, allowing project information and contact messages to be managed dynamically.
+
+The application also includes a protected **admin dashboard** for managing projects and contact messages.
 
 ---
 
-## Folder structure
+# ✨ Features
 
+## 🏠 Public Portfolio
+
+* Animated hero section
+* About section
+* Education timeline
+* Technical skills section
+* Established skills and currently-learning skills
+* Project gallery
+* Project category filtering
+* Individual project detail pages
+* Project problem/solution explanation
+* Architecture and technical details
+* Challenges and takeaways
+* Development journey timeline
+* Currently-learning roadmap
+* GitHub repository and language information
+* Responsive design
+* Custom 404 page
+* Loading and skeleton states
+* Empty states
+* Accessible navigation
+
+## 📩 Contact System
+
+* Working contact form
+* Client-side validation
+* Server-side validation
+* Spam honeypot protection
+* Rate limiting
+* Email notification using Nodemailer
+* Contact messages stored in MongoDB
+
+## 🔐 Admin Dashboard
+
+The `/admin` section provides a protected dashboard with:
+
+* JWT-based authentication
+* Admin login
+* Project statistics
+* Featured project management
+* Project deletion
+* Contact message management
+* Read/unread message status
+* Message deletion
+
+## ⚡ Performance & Engineering
+
+* React + Vite architecture
+* Route-level code splitting
+* API fallback dataset
+* Responsive UI
+* Keyboard navigation
+* Visible focus states
+* Semantic HTML landmarks
+* ARIA labels
+* Reduced-motion support
+* Open Graph metadata
+* Twitter card metadata
+* JSON-LD person schema
+* `robots.txt`
+* Sitemap
+
+---
+
+# 🛠️ Tech Stack
+
+| Category        | Technologies                     |
+| --------------- | -------------------------------- |
+| Frontend        | React 18, Vite                   |
+| Styling         | Tailwind CSS                     |
+| Animations      | Framer Motion                    |
+| Routing         | React Router                     |
+| Icons           | Lucide React                     |
+| Backend         | Node.js, Express                 |
+| Database        | MongoDB                          |
+| ODM             | Mongoose                         |
+| Authentication  | JWT, bcrypt                      |
+| Email           | Nodemailer                       |
+| Security        | Helmet, CORS, express-rate-limit |
+| Validation      | express-validator                |
+| Version Control | Git, GitHub                      |
+
+---
+
+# 🏗️ Architecture
+
+```text
+                    ┌─────────────────────┐
+                    │      Portfolio      │
+                    │    React + Vite     │
+                    └──────────┬──────────┘
+                               │
+                               │ REST API
+                               ▼
+                    ┌─────────────────────┐
+                    │    Express Server   │
+                    │      Node.js        │
+                    └──────────┬──────────┘
+                               │
+                 ┌─────────────┴─────────────┐
+                 │                           │
+                 ▼                           ▼
+        ┌─────────────────┐        ┌─────────────────┐
+        │    MongoDB      │        │    Nodemailer   │
+        │ Projects/Admin  │        │ Contact Emails  │
+        │    Messages     │        └─────────────────┘
+        └─────────────────┘
 ```
+
+---
+
+# 📁 Project Structure
+
+```text
 .
-├── client/                     React + Vite frontend
+├── client/
 │   ├── public/
-│   │   ├── images/projects/    Project covers and screenshots
+│   │   ├── images/
+│   │   │   └── projects/
 │   │   ├── favicon.svg
 │   │   ├── robots.txt
 │   │   └── sitemap.xml
+│   │
 │   ├── src/
-│   │   ├── components/         Reusable UI (Button, Badge, ProjectCard, ...)
-│   │   ├── sections/           Home page sections (Hero, About, Projects, ...)
-│   │   ├── pages/              Routed pages (Home, ProjectDetail, Admin, 404)
-│   │   ├── layouts/            Shared page shell
-│   │   ├── hooks/              useProjects, useScrollSpy, useAdminAuth, ...
-│   │   ├── services/           API and GitHub clients
-│   │   ├── data/               Profile, skills and fallback project data
-│   │   ├── utils/              Motion variants, class-name helper
+│   │   ├── components/
+│   │   ├── sections/
+│   │   ├── pages/
+│   │   ├── layouts/
+│   │   ├── hooks/
+│   │   ├── services/
+│   │   ├── data/
+│   │   ├── utils/
 │   │   ├── App.jsx
 │   │   └── main.jsx
+│   │
 │   ├── index.html
 │   ├── tailwind.config.js
 │   ├── vite.config.js
 │   └── vercel.json
 │
-└── server/                     Express REST API
-    ├── config/db.js
-    ├── controllers/            Request handlers
-    ├── middleware/             auth, validation, rate limiting, errors
-    ├── models/                 Project, Message, Admin
-    ├── routes/                 Route definitions
-    ├── services/mailer.js
-    ├── utils/                  Seed data, seed and create-admin scripts
+└── server/
+    ├── config/
+    │   └── db.js
+    ├── controllers/
+    ├── middleware/
+    ├── models/
+    ├── routes/
+    ├── services/
+    │   └── mailer.js
+    ├── utils/
+    │   ├── projects.seed.json
+    │   ├── seed.js
+    │   └── create-admin.js
     ├── server.js
     └── .env.example
 ```
 
 ---
 
-## Environment variables
+# ⚙️ Environment Variables
 
-### `server/.env`
+## Backend
 
-| Variable | Required | Notes |
-| --- | --- | --- |
-| `PORT` | no | Defaults to `5000` |
-| `NODE_ENV` | no | Set to `production` when deployed |
-| `MONGO_URI` | yes | MongoDB Atlas connection string |
-| `JWT_SECRET` | yes | Long random string — see below |
-| `JWT_EXPIRES_IN` | no | Defaults to `2h` |
-| `EMAIL_HOST` | for email | e.g. `smtp.gmail.com` |
-| `EMAIL_PORT` | for email | `587`, or `465` for TLS |
-| `EMAIL_USER` | for email | Sending address |
-| `EMAIL_PASSWORD` | for email | Gmail: an App Password, never your account password |
-| `EMAIL_TO` | no | Where notifications go; defaults to `EMAIL_USER` |
-| `CLIENT_URL` | yes | Comma-separated allowed origins |
-| `ADMIN_EMAIL` | setup only | Used once by `npm run create-admin` |
-| `ADMIN_PASSWORD` | setup only | Minimum 8 characters; remove after first sign-in |
+Create:
 
-Generate a JWT secret:
+```text
+server/.env
+```
+
+Example:
+
+```env
+PORT=5000
+NODE_ENV=development
+
+MONGO_URI=your_mongodb_connection_string
+
+JWT_SECRET=your_long_random_secret
+JWT_EXPIRES_IN=2h
+
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASSWORD=your_gmail_app_password
+EMAIL_TO=your_email@gmail.com
+
+CLIENT_URL=http://localhost:5173
+
+ADMIN_EMAIL=admin@example.com
+ADMIN_PASSWORD=your_secure_password
+```
+
+### Generate a JWT Secret
 
 ```bash
 node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"
 ```
 
-### `client/.env`
+## Frontend
 
-Only values safe to ship in a browser bundle belong here — everything in a Vite
-`VITE_` variable ends up readable in the built JavaScript.
+Create:
 
-| Variable | Notes |
-| --- | --- |
-| `VITE_API_URL` | e.g. `http://localhost:5000/api` |
-| `VITE_GITHUB_USERNAME` | `codedwithjaydip` |
-| `VITE_SITE_URL` | Canonical site URL |
+```text
+client/.env
+```
 
-Both folders ship a `.env.example`. Copy it, fill it in, and never commit `.env`.
+```env
+VITE_API_URL=http://localhost:5000/api
+VITE_GITHUB_USERNAME=codedwithjaydip
+VITE_SITE_URL=http://localhost:5173
+```
+
+> ⚠️ Never commit `.env` files or passwords to GitHub.
 
 ---
 
-## Installation
+# 🚀 Installation
 
-### Prerequisites
+## Prerequisites
 
-- Node.js 18 or newer
-- A MongoDB instance — local, or a free MongoDB Atlas cluster
+Make sure you have:
 
-### Frontend
+* Node.js 18+
+* npm
+* MongoDB or MongoDB Atlas
+* Git
+
+---
+
+## 1. Clone the Repository
+
+```bash
+git clone https://github.com/codedwithjaydip/YOUR-REPOSITORY.git
+
+cd YOUR-REPOSITORY
+```
+
+---
+
+## 2. Install Frontend
 
 ```bash
 cd client
-cp .env.example .env
+
 npm install
+```
+
+Create `.env` from `.env.example` and configure your API URL.
+
+Start the frontend:
+
+```bash
 npm run dev
 ```
 
-Runs on `http://localhost:5173`.
+Frontend:
 
-### Backend
+```text
+http://localhost:5173
+```
+
+---
+
+## 3. Install Backend
+
+Open another terminal:
 
 ```bash
 cd server
-cp .env.example .env
+
 npm install
+```
+
+Create `.env` from `.env.example`.
+
+Start the backend:
+
+```bash
 npm run dev
 ```
 
-Runs on `http://localhost:5000`.
+Backend:
 
-### Database setup
+```text
+http://localhost:5000
+```
 
-With `MONGO_URI` set, load the project data and create your admin account:
+---
+
+# 🗄️ Database Setup
+
+After configuring `MONGO_URI`:
 
 ```bash
 cd server
-npm run seed           # inserts/updates projects from utils/projects.seed.json
-npm run create-admin   # reads ADMIN_EMAIL and ADMIN_PASSWORD from .env
 ```
 
-`npm run seed` is idempotent — it upserts by slug, so re-running it updates
-existing projects rather than duplicating them. To edit project copy, change
-`server/utils/projects.seed.json` and seed again.
-
-Once signed in at `/admin`, remove `ADMIN_PASSWORD` from your `.env`.
-
-### Running locally
-
-Two terminals:
+Seed project data:
 
 ```bash
-cd client && npm run dev     # http://localhost:5173
-cd server && npm run dev     # http://localhost:5000
+npm run seed
 ```
 
-The site works without the backend running — projects fall back to the bundled
-dataset in `client/src/data/projects.js`, and the contact form reports that the
-server is unreachable.
+Create the admin account:
+
+```bash
+npm run create-admin
+```
+
+The seed operation is idempotent, so running it again updates existing projects instead of creating duplicates.
+
+After successfully creating the admin account, remove `ADMIN_PASSWORD` from your environment variables.
 
 ---
 
-## API endpoints
+# 🔌 API Endpoints
 
-### Public
+## Public API
 
-| Method | Endpoint | Description |
-| --- | --- | --- |
-| `GET` | `/api/health` | Uptime and database connection status |
-| `GET` | `/api/projects` | All projects; optional `?category=` and `?featured=true` |
-| `GET` | `/api/projects/:idOrSlug` | A single project by Mongo id or slug |
-| `POST` | `/api/contact` | Submit a contact message (rate-limited: 5/hour) |
+| Method | Endpoint                  | Description                  |
+| ------ | ------------------------- | ---------------------------- |
+| GET    | `/api/health`             | Check server/database health |
+| GET    | `/api/projects`           | Get all projects             |
+| GET    | `/api/projects/:idOrSlug` | Get a specific project       |
+| POST   | `/api/contact`            | Submit contact message       |
 
-### Admin
+### Project Filters
 
-`POST /api/admin/login` is public and rate-limited to 8 attempts per 15 minutes.
-Every other admin endpoint requires an `Authorization: Bearer <token>` header.
+```text
+GET /api/projects?category=Full-Stack
+```
 
-| Method | Endpoint | Description |
-| --- | --- | --- |
-| `POST` | `/api/admin/login` | Exchange credentials for a JWT |
-| `GET` | `/api/admin/me` | Verify the current session |
-| `GET` | `/api/admin/stats` | Dashboard counts |
-| `GET` | `/api/admin/projects` | List projects |
-| `POST` | `/api/admin/projects` | Create a project |
-| `PUT` | `/api/admin/projects/:id` | Update a project |
-| `DELETE` | `/api/admin/projects/:id` | Delete a project |
-| `GET` | `/api/admin/messages` | List messages, newest first |
-| `PATCH` | `/api/admin/messages/:id/read` | Toggle read state |
-| `DELETE` | `/api/admin/messages/:id` | Delete a message |
-
-Every response follows the same shape:
-
-```json
-{ "success": true, "data": {} }
-{ "success": false, "message": "Something readable", "errors": {} }
+```text
+GET /api/projects?featured=true
 ```
 
 ---
 
-## Deployment
+## Admin API
 
-### Database — MongoDB Atlas
+All admin routes except login require:
 
-1. Create a free M0 cluster.
-2. Add a database user with read/write access.
-3. Under Network Access, allow your backend host's IP, or `0.0.0.0/0` if the host
-   has no static IP.
-4. Copy the connection string into `MONGO_URI` on your backend host.
+```http
+Authorization: Bearer <JWT_TOKEN>
+```
 
-### Backend — Render or Railway
-
-1. Create a new Web Service from this repository, root directory `server`.
-2. Build command `npm install`, start command `npm start`.
-3. Add every variable from `server/.env.example` in the dashboard.
-4. Set `CLIENT_URL` to your deployed frontend origin — CORS rejects anything else.
-5. Deploy, then run the seed and create-admin scripts once against the production
-   database.
-
-On Render's free tier the service sleeps when idle, so the first request after a
-pause is slow. The frontend's fallback data covers that window.
-
-### Frontend — Vercel
-
-1. Import the repository, root directory `client`.
-2. Framework preset Vite; build command `npm run build`; output directory `dist`.
-3. Add `VITE_API_URL` pointing at your deployed API, plus `VITE_GITHUB_USERNAME`
-   and `VITE_SITE_URL`.
-4. `vercel.json` already rewrites all routes to `index.html`, which is what makes
-   deep links like `/projects/nexacart` work.
-
-After deploying, update the hardcoded URLs in `client/index.html` (canonical link,
-Open Graph tags) and `client/public/sitemap.xml` to your real domain.
+| Method | Endpoint                       | Description          |
+| ------ | ------------------------------ | -------------------- |
+| POST   | `/api/admin/login`             | Admin authentication |
+| GET    | `/api/admin/me`                | Verify admin session |
+| GET    | `/api/admin/stats`             | Dashboard statistics |
+| GET    | `/api/admin/projects`          | List projects        |
+| POST   | `/api/admin/projects`          | Create project       |
+| PUT    | `/api/admin/projects/:id`      | Update project       |
+| DELETE | `/api/admin/projects/:id`      | Delete project       |
+| GET    | `/api/admin/messages`          | Get contact messages |
+| PATCH  | `/api/admin/messages/:id/read` | Toggle read status   |
+| DELETE | `/api/admin/messages/:id`      | Delete message       |
 
 ---
 
-## Security
+# 🔒 Security
 
-- Passwords hashed with bcrypt (cost factor 12) and excluded from queries by default
-- JWT-protected admin routes, with tokens verified against the database on every
-  request so a deleted admin's token stops working immediately
-- Login returns an identical error for unknown emails and wrong passwords, so the
-  endpoint does not reveal which accounts exist
-- `helmet` security headers; CORS restricted to an explicit origin allow-list
-- Rate limiting applied globally, and more tightly on the contact form and login
-- All input validated server-side with `express-validator`; email HTML is escaped
-  before being sent
-- Request bodies capped at 100 kB
-- Secrets live only in `.env`, which is gitignored; the frontend bundle contains
-  no credentials
+The application implements several security measures:
 
----
-
-## Known gaps
-
-Worth stating plainly rather than discovering later:
-
-- The admin dashboard supports feature/unfeature and delete for projects, but
-  creating and editing them is done through `projects.seed.json` and the seed
-  script. The `POST` and `PUT` endpoints exist and are tested; the dashboard form
-  for them is not built yet.
-- Nodemailer is wired up but untested against a real SMTP server.
-- Contact messages are stored even if the notification email fails, so nothing is
-  lost — but check the dashboard, not just your inbox.
+* JWT authentication
+* bcrypt password hashing
+* Helmet security headers
+* CORS allow-list
+* API rate limiting
+* Login rate limiting
+* Contact form rate limiting
+* Server-side input validation
+* Email HTML escaping
+* Request body size limits
+* Environment-based secrets
+* No credentials in frontend bundle
+* Generic login errors to prevent account enumeration
 
 ---
 
-## Future improvements
+# 📸 Screenshots
 
-- Project create/edit forms in the admin dashboard
-- Image uploads via Cloudinary instead of committed files
-- Blog or technical writing section
-- Analytics
-- Automated tests and a CI pipeline
+Add screenshots of:
+
+1. Home / Hero
+2. About & Education
+3. Skills
+4. Projects
+5. Project Details
+6. Contact Section
+7. Admin Dashboard
+
+Recommended location:
+
+```text
+client/public/images/projects/
+```
+
+Then reference them inside:
+
+```text
+server/utils/projects.seed.json
+```
 
 ---
 
-## Author
+# 🌍 Deployment
 
-**Jaydip Solanki** — Full-Stack Developer, M.Sc. IT student at The Maharaja
-Sayajirao University of Baroda, Vadodara, Gujarat.
+## MongoDB Atlas
 
-- GitHub: [codedwithjaydip](https://github.com/codedwithjaydip)
-- LinkedIn: [jaydip-solanki-7269a7238](https://www.linkedin.com/in/jaydip-solanki-7269a7238)
-#   p o r t f o l i o  
- 
+1. Create a MongoDB Atlas cluster.
+2. Create a database user.
+3. Configure Network Access.
+4. Copy the MongoDB connection string.
+5. Add it as `MONGO_URI` on the backend.
+
+---
+
+## Backend — Render / Railway
+
+Recommended settings:
+
+```text
+Root Directory: server
+Build Command: npm install
+Start Command: npm start
+```
+
+Add all required backend environment variables.
+
+Set:
+
+```env
+CLIENT_URL=https://your-frontend-domain.com
+```
+
+Then deploy the backend.
+
+---
+
+## Frontend — Vercel
+
+Recommended settings:
+
+```text
+Root Directory: client
+Framework: Vite
+Build Command: npm run build
+Output Directory: dist
+```
+
+Add:
+
+```env
+VITE_API_URL=https://your-backend-domain.com/api
+VITE_GITHUB_USERNAME=codedwithjaydip
+VITE_SITE_URL=https://your-portfolio-domain.com
+```
+
+The project already contains a `vercel.json` configuration for SPA routing.
+
+---
+
+# 📈 Current Limitations
+
+The current implementation has a few known limitations:
+
+* Admin dashboard supports project feature/unfeature and deletion.
+* Project creation/editing API endpoints exist, but the dashboard UI for these operations is not currently implemented.
+* Nodemailer is configured but requires testing with a real SMTP provider.
+* Contact messages are stored even if email notification fails.
+
+---
+
+# 🔮 Future Improvements
+
+Planned improvements include:
+
+* [ ] Admin project create/edit interface
+* [ ] Cloudinary image uploads
+* [ ] Blog / technical articles section
+* [ ] Website analytics
+* [ ] Automated testing
+* [ ] CI/CD pipeline
+* [ ] Improved project search
+* [ ] More GitHub statistics
+* [ ] Advanced admin analytics
+
+---
+
+# 👨‍💻 Author
+
+## Jaydip Solanki
+
+**Full-Stack Developer | M.Sc. IT Student**
+
+📍 Vadodara, Gujarat, India
+
+### Connect With Me
+
+* GitHub: https://github.com/codedwithjaydip
+* LinkedIn: https://www.linkedin.com/in/jaydip-solanki-7269a7238/
+
+---
+
+## ⭐ Support
+
+If you find this project useful or interesting, consider giving the repository a ⭐ on GitHub.
+
+---
+
+## 📄 License
+
+This project is created and maintained by **Jaydip Solanki**.
