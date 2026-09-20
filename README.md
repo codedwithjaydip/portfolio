@@ -27,7 +27,7 @@
 
 ## 🌐 Live Demo
 
-**Portfolio:** Add your deployed URL here
+**Portfolio:** https://jaydip-portfolio-aq5u.onrender.com
 
 **GitHub:** https://github.com/codedwithjaydip
 
