@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
@@ -24,32 +24,9 @@ export default function Navbar() {
   const scrolled = useScrolled(24);
   const activeId = useScrollSpy(SECTION_IDS);
   const { pathname } = useLocation();
-  const navigate = useNavigate();
 
   const onHome = pathname === '/';
-
-  const scrollToSection = (id) => {
-    const target = document.getElementById(id);
-    if (!target) return;
-    // A manual offset calculation is more reliable across mobile browsers
-    // than relying on scrollIntoView + CSS scroll-margin-top alone,
-    // especially with a fixed navbar overlapping the top of the page.
-    const top = target.getBoundingClientRect().top + window.pageYOffset - 72;
-    window.scrollTo({ top, behavior: 'smooth' });
-  };
-
-  const goToSection = (id) => {
-    if (!onHome) {
-      setOpen(false);
-      navigate(`/#${id}`);
-      return;
-    }
-    // Scroll first, then close the mobile menu on the next frame. Closing
-    // the menu and starting the scroll in the same instant let the menu's
-    // collapse animation swallow the scroll on some mobile browsers.
-    scrollToSection(id);
-    requestAnimationFrame(() => setOpen(false));
-  };
+  const closeMenu = () => setOpen(false);
 
   return (
     <motion.header
@@ -63,11 +40,7 @@ export default function Navbar() {
     >
       <Container>
         <nav aria-label="Main" className="flex h-16 items-center justify-between gap-6">
-          <Link
-            to="/"
-            className="font-display text-lg font-bold tracking-tight text-white"
-            onClick={() => setOpen(false)}
-          >
+          <Link to="/" className="font-display text-lg font-bold tracking-tight text-white" onClick={closeMenu}>
             Jaydip
             <span className="text-violet-400">.</span>
           </Link>
@@ -75,26 +48,38 @@ export default function Navbar() {
           <ul className="hidden items-center gap-1 md:flex">
             {LINKS.map((link) => {
               const active = onHome && activeId === link.id;
+              const linkClasses = cn(
+                'relative block rounded-lg px-3 py-2 text-sm transition-colors',
+                active ? 'text-white' : 'text-gray-400 hover:text-white'
+              );
               return (
                 <li key={link.id}>
-                  <button
-                    type="button"
-                    onClick={() => goToSection(link.id)}
-                    aria-current={active ? 'true' : undefined}
-                    className={cn(
-                      'relative rounded-lg px-3 py-2 text-sm transition-colors',
-                      active ? 'text-white' : 'text-gray-400 hover:text-white'
-                    )}
-                  >
-                    {link.label}
-                    {active && (
-                      <motion.span
-                        layoutId="nav-active"
-                        className="absolute inset-x-2 -bottom-px h-px bg-gradient-to-r from-violet-500 to-electric-500"
-                        transition={{ type: 'spring', stiffness: 380, damping: 32 }}
-                      />
-                    )}
-                  </button>
+                  {/*
+                    A plain <a href="#id"> on the home page, not a button with a
+                    JS-computed scroll. Letting the browser handle the jump
+                    natively (it already respects the scroll-mt-24 offset on
+                    each section) sidesteps every timing quirk that comes from
+                    coordinating a JS scroll with the mobile menu's close
+                    animation. Off the home page, a router Link changes route
+                    to "/#id" and Home's own effect finishes the scroll once
+                    the sections exist.
+                  */}
+                  {onHome ? (
+                    <a href={`#${link.id}`} aria-current={active ? 'true' : undefined} className={linkClasses}>
+                      {link.label}
+                      {active && (
+                        <motion.span
+                          layoutId="nav-active"
+                          className="absolute inset-x-2 -bottom-px h-px bg-gradient-to-r from-violet-500 to-electric-500"
+                          transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                        />
+                      )}
+                    </a>
+                  ) : (
+                    <Link to={`/#${link.id}`} className={linkClasses}>
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               );
             })}
@@ -130,13 +115,23 @@ export default function Navbar() {
               <ul className="flex flex-col">
                 {LINKS.map((link) => (
                   <li key={link.id}>
-                    <button
-                      type="button"
-                      onClick={() => goToSection(link.id)}
-                      className="w-full rounded-lg px-2 py-3 text-left text-base text-gray-300 hover:bg-white/[0.04] hover:text-white"
-                    >
-                      {link.label}
-                    </button>
+                    {onHome ? (
+                      <a
+                        href={`#${link.id}`}
+                        onClick={closeMenu}
+                        className="block w-full rounded-lg px-2 py-3 text-left text-base text-gray-300 hover:bg-white/[0.04] hover:text-white"
+                      >
+                        {link.label}
+                      </a>
+                    ) : (
+                      <Link
+                        to={`/#${link.id}`}
+                        onClick={closeMenu}
+                        className="block w-full rounded-lg px-2 py-3 text-left text-base text-gray-300 hover:bg-white/[0.04] hover:text-white"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
