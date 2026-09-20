@@ -24,7 +24,12 @@ export default function Home() {
   useEffect(() => {
     if (!hash) return;
     const id = hash.slice(1);
-    requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }));
+    requestAnimationFrame(() => {
+      const target = document.getElementById(id);
+      if (!target) return;
+      const top = target.getBoundingClientRect().top + window.pageYOffset - 72;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
   }, [hash]);
 
   return (

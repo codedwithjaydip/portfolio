@@ -28,13 +28,27 @@ export default function Navbar() {
 
   const onHome = pathname === '/';
 
+  const scrollToSection = (id) => {
+    const target = document.getElementById(id);
+    if (!target) return;
+    // A manual offset calculation is more reliable across mobile browsers
+    // than relying on scrollIntoView + CSS scroll-margin-top alone,
+    // especially with a fixed navbar overlapping the top of the page.
+    const top = target.getBoundingClientRect().top + window.pageYOffset - 72;
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
+
   const goToSection = (id) => {
-    setOpen(false);
     if (!onHome) {
+      setOpen(false);
       navigate(`/#${id}`);
       return;
     }
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    // Scroll first, then close the mobile menu on the next frame. Closing
+    // the menu and starting the scroll in the same instant let the menu's
+    // collapse animation swallow the scroll on some mobile browsers.
+    scrollToSection(id);
+    requestAnimationFrame(() => setOpen(false));
   };
 
   return (
@@ -110,7 +124,7 @@ export default function Navbar() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden border-t border-white/[0.06] md:hidden"
+            className="overflow-hidden border-t border-white/[0.06] bg-ink md:hidden"
           >
             <Container className="py-3">
               <ul className="flex flex-col">
